@@ -38,6 +38,7 @@ criterion = nn.CrossEntropyLoss()
 #         models.append(file)
 # model_name = st.radio("Select model:", models)
 
+CUDA_DEVICE = 1
 # MODEL
 model = cal.DenseNetBC_50_12()
 model.load_state_dict(torch.load("/home/yoon/jyk416/streamlit_odin_pytorch/models/model104.pth"))
