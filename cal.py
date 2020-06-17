@@ -26,10 +26,10 @@ from densenet import DenseNet3
 start = time.time()
 # loading data sets
 
-transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize((125.3 / 255, 123.0 / 255, 113.9 / 255), (63.0 / 255, 62.1 / 255.0, 66.7 / 255.0)),
-])
+# transform = transforms.Compose([
+#     transforms.ToTensor(),
+#     transforms.Normalize((125.3 / 255, 123.0 / 255, 113.9 / 255), (63.0 / 255, 62.1 / 255.0, 66.7 / 255.0)),
+# ])
 
 # loading neural network
 
