@@ -26,7 +26,7 @@ def testData(net1, criterion, CUDA_DEVICE, testloader10, testloader, nnName, noi
     g2 = open("../softmax_scores/confidence_Our_Out.txt", 'w')
     N = 458
     # if dataName == "iSUN": N = 8925
-    print("Processing in-distribution images")
+    print("Processing in-distribution cat_image")
 ########################################In-distribution###########################################
     for j, data in enumerate(testloader10):
         # if j<1000: continue
@@ -61,7 +61,7 @@ def testData(net1, criterion, CUDA_DEVICE, testloader10, testloader, nnName, noi
         gradient[0][0] = (gradient[0][0] )/(63.0/255.0)
         gradient[0][1] = (gradient[0][1] )/(62.1/255.0)
         gradient[0][2] = (gradient[0][2])/(66.7/255.0)
-        # Adding small perturbations to images
+        # Adding small perturbations to cat_image
         tempInputs = torch.add(inputs.data,  -noiseMagnitude1, gradient)
         outputs = net1(Variable(tempInputs))
         outputs = outputs / temper
@@ -73,14 +73,14 @@ def testData(net1, criterion, CUDA_DEVICE, testloader10, testloader, nnName, noi
         nnOutputs = np.exp(nnOutputs)/np.sum(np.exp(nnOutputs))
         g1.write("{}, {}, {}\n".format(temper, noiseMagnitude1, np.max(nnOutputs)))
         # if j % 100 == 99:
-        print("{:4}/{:4} images processed, {:.1f} seconds used.".format(j+1, N, time.time()-t0))
+        print("{:4}/{:4} cat_image processed, {:.1f} seconds used.".format(j+1, N, time.time()-t0))
         t0 = time.time()
         
         if j == N - 1: break
 
 
     t0 = time.time()
-    print("Processing out-of-distribution images")
+    print("Processing out-of-distribution Images")
 ###################################Out-of-Distributions#####################################
     for j, data in enumerate(testloader):
         # if j<1000: continue
@@ -118,7 +118,7 @@ def testData(net1, criterion, CUDA_DEVICE, testloader10, testloader, nnName, noi
         gradient[0][0] = (gradient[0][0] )/(63.0/255.0)
         gradient[0][1] = (gradient[0][1] )/(62.1/255.0)
         gradient[0][2] = (gradient[0][2])/(66.7/255.0)
-        # Adding small perturbations to images
+        # Adding small perturbations to cat_image
         tempInputs = torch.add(inputs.data,  -noiseMagnitude1, gradient)
         outputs = net1(Variable(tempInputs))
         outputs = outputs / temper
@@ -130,7 +130,7 @@ def testData(net1, criterion, CUDA_DEVICE, testloader10, testloader, nnName, noi
         nnOutputs = np.exp(nnOutputs)/np.sum(np.exp(nnOutputs))
         g2.write("{}, {}, {}\n".format(temper, noiseMagnitude1, np.max(nnOutputs)))
         # if j % 100 == 99:
-        print("{:4}/{:4} images processed, {:.1f} seconds used.".format(j+1, N, time.time()-t0))
+        print("{:4}/{:4} cat_image processed, {:.1f} seconds used.".format(j+1, N, time.time()-t0))
         t0 = time.time()
 
         # if j== N-1: break
