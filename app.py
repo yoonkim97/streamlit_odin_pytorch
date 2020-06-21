@@ -32,7 +32,7 @@ result = 0
 st.header("Let's detect anomalies!")
 
 st.subheader("Model")
-path = "/Users/yoonkim/streamlit_odin_pytorch/models/"
+path = "/home/yoon/jyk416/streamlit_odin_pytorch/models/"
 models = []
 for file in os.listdir(path):
     if file.lower().endswith("pth"):
@@ -52,25 +52,25 @@ st.write('You selected temperature: `%d`' % temperature)
 st.write('You selected perturbation magnitude `%f`' % perturbation_magn)
 
 if model_name == 'model_no_cardiomegaly.pth' and temperature == 1 and perturbation_magn == 0.0000:
-    ourIn = np.loadtxt("/Users/yoonkim/streamlit_odin_pytorch/softmax_scores/temp_1_magn_0.txt", delimiter=',')
+    ourIn = np.loadtxt("/home/yoon/jyk416/streamlit_odin_pytorch/softmax_scores/temp_1_magn_0.txt", delimiter=',')
 if model_name == 'model_no_cardiomegaly.pth' and temperature == 1 and perturbation_magn == 0.0008:
-    ourIn = np.loadtxt("/Users/yoonkim/streamlit_odin_pytorch/softmax_scores/temp_1_magn_8.txt", delimiter=',')
+    ourIn = np.loadtxt("/home/yoon/jyk416/streamlit_odin_pytorch/softmax_scores/temp_1_magn_8.txt", delimiter=',')
 if model_name == 'model_no_cardiomegaly.pth' and temperature == 1 and perturbation_magn == 0.0032:
-    ourIn = np.loadtxt("/Users/yoonkim/streamlit_odin_pytorch/softmax_scores/temp_1_magn_32.txt", delimiter=',')
+    ourIn = np.loadtxt("/home/yoon/jyk416/streamlit_odin_pytorch/softmax_scores/temp_1_magn_32.txt", delimiter=',')
 
 if model_name == 'model_no_cardiomegaly.pth' and temperature == 500 and perturbation_magn == 0.0000:
-    ourIn = np.loadtxt("/Users/yoonkim/streamlit_odin_pytorch/softmax_scores/temp_500_magn_0.txt", delimiter=',')
+    ourIn = np.loadtxt("/home/yoon/jyk416/streamlit_odin_pytorch/softmax_scores/temp_500_magn_0.txt", delimiter=',')
 if model_name == 'model_no_cardiomegaly.pth' and temperature == 500 and perturbation_magn == 0.0008:
-    ourIn = np.loadtxt("/Users/yoonkim/streamlit_odin_pytorch/softmax_scores/temp_500_magn_8.txt", delimiter=',')
+    ourIn = np.loadtxt("/home/yoon/jyk416/streamlit_odin_pytorch/softmax_scores/temp_500_magn_8.txt", delimiter=',')
 if model_name == 'model_no_cardiomegaly.pth' and temperature == 500 and perturbation_magn == 0.0032:
-    ourIn = np.loadtxt("/Users/yoonkim/streamlit_odin_pytorch/softmax_scores/temp_500_magn_32.txt", delimiter=',')
+    ourIn = np.loadtxt("/home/yoon/jyk416/streamlit_odin_pytorch/softmax_scores/temp_500_magn_32.txt", delimiter=',')
 
 if model_name == 'model_no_cardiomegaly.pth' and temperature == 1000 and perturbation_magn == 0.0000:
-    ourIn = np.loadtxt("/Users/yoonkim/streamlit_odin_pytorch/softmax_scores/temp_1000_magn_0.txt", delimiter=',')
+    ourIn = np.loadtxt("/home/yoon/jyk416/streamlit_odin_pytorch/softmax_scores/temp_1000_magn_0.txt", delimiter=',')
 if model_name == 'model_no_cardiomegaly.pth' and temperature == 1000 and perturbation_magn == 0.0008:
-    ourIn = np.loadtxt("/Users/yoonkim/streamlit_odin_pytorch/softmax_scores/temp_1000_magn_8.txt", delimiter=',')
+    ourIn = np.loadtxt("/home/yoon/jyk416/streamlit_odin_pytorch/softmax_scores/temp_1000_magn_8.txt", delimiter=',')
 if model_name == 'model_no_cardiomegaly.pth' and temperature == 1000 and perturbation_magn == 0.0032:
-    ourIn = np.loadtxt("/Users/yoonkim/streamlit_odin_pytorch/softmax_scores/temp_1000_magn_32.txt", delimiter=',')
+    ourIn = np.loadtxt("/home/yoon/jyk416/streamlit_odin_pytorch/softmax_scores/temp_1000_magn_32.txt", delimiter=',')
 
 ourInScores = ourIn[:, 2]
 sum_val = 0
@@ -92,14 +92,14 @@ def file_selector(folder_path):
     return os.path.join(folder_path, selected_filename)
 
 if category == 'Healthy':
-    filename = file_selector("/Users/yoonkim/streamlit_odin_pytorch/test/healthy-x-ray/healthy-x-ray-image/")
-    folderpath = "/Users/yoonkim/streamlit_odin_pytorch/test/healthy-x-ray/"
+    filename = file_selector("/home/yoon/jyk416/streamlit_odin_pytorch/test/healthy-x-ray/healthy-x-ray-image/")
+    folderpath = "/home/yoon/jyk416/streamlit_odin_pytorch/test/healthy-x-ray/"
 elif category == 'Cat':
-    filename = file_selector("/Users/yoonkim/streamlit_odin_pytorch/test/cat/cat_image/")
-    folderpath = "/Users/yoonkim/streamlit_odin_pytorch/test/cat/"
+    filename = file_selector("/home/yoon/jyk416/streamlit_odin_pytorch/test/cat/cat_image/")
+    folderpath = "/home/yoon/jyk416/streamlit_odin_pytorch/test/cat/"
 else:
-    filename = file_selector("/Users/yoonkim/streamlit_odin_pytorch/test/covid-x-ray/covid-x-ray-image/")
-    folderpath = "/Users/yoonkim/streamlit_odin_pytorch/test/covid-x-ray/"
+    filename = file_selector("/home/yoon/jyk416/streamlit_odin_pytorch/test/covid-x-ray/covid-x-ray-image/")
+    folderpath = "/home/yoon/jyk416/streamlit_odin_pytorch/test/covid-x-ray/"
 
 st.write('You selected `%s`' % filename)
 image = Image.open(filename)
@@ -113,7 +113,7 @@ train_images = torchvision.datasets.ImageFolder(folderpath, transform=transform)
 image_loader = torch.utils.data.DataLoader(train_images, batch_size=1, shuffle=False, num_workers=2)
 
 model = cal.DenseNetBC_50_12()
-model.load_state_dict(torch.load("/Users/yoonkim/streamlit_odin_pytorch/models/" + model_name, map_location=torch.device('cpu')))
+model.load_state_dict(torch.load("/home/yoon/jyk416/streamlit_odin_pytorch/models/" + model_name, map_location=torch.device('cpu')))
 
 def process_test_image(temper, magn):
     t0 = time.time()
